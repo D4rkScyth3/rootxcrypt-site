@@ -49,7 +49,7 @@ This software is provided "as is", without warranty of any kind.
 ### *👉 This means your accounts stay safe, and you don’t have to worry about weak or guessable passwords anymore.*
 
 
-![Tool-Interface](assets/tool-interface) ![Readme-Interface](assets/readme-interface)
+![Tool-Interface](assets/tool-interface.png) ![Readme-Interface](assets/readme-interface.png)
 
 
 
