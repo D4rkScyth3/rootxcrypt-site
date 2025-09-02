@@ -29,13 +29,13 @@ This software is provided "as is", without warranty of any kind.
 
 ### **📝 How to use it?**
 
-*1\. Enter your normal password.*
-*&nbsp;  - Example: @instagram123*
-*2\. Choose a Master Key (this is your secret key that only you know).*
-*&nbsp;  - Example: rootxcrypt*
-*3\. Click the Encrypt button. The tool will generate a secure encrypted password.*
-*&nbsp;  - Example: 9x0a$#...*
-*4\. Use this encrypted password as the actual password for your account.*
+*1\. Enter your normal password.*  
+*&nbsp;  - Example: @instagram123*  
+*2\. Choose a Master Key (this is your secret key that only you know).*  
+*&nbsp;  - Example: rootxcrypt*  
+*3\. Click the Encrypt button. The tool will generate a secure encrypted password.*  
+*&nbsp;  - Example: 9x0a$#...*  
+*4\. Use this encrypted password as the actual password for your account.*  
 
 
 # Important Instructions
