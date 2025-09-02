@@ -9,7 +9,7 @@ This software is provided "as is", without warranty of any kind.
 
 <b><b>
 
-# **🔐 Root❌Crypt**
+# **🔐 Root❌Crypt**  (https://d4rkscyth3.github.io/rootxcrypt-site/)
 
 ### Why is it needed?
 
