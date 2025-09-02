@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rootXcrypt</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Readme Button -->
+        <div class="readme-btn">
+            <button onclick="openFilePopup()">📄Read File</button>
+        </div>
+
+        <!-- Readme Popup -->
+        <div id="filePopup" class="popup">
+            <div class="popup-content">
+                <span class="close-btn" onclick="closeFilePopup()">&times;</span>
+                <h2>📄Readme.md</h2>
+                <div id="fileText" class="readme-content"></div>
+            </div>
+        </div>
+
+        <!-- Main Tool -->
+        <h1>💀 Root<span class="small-x">❌</span>Crypt</h1>
+        <input type="text" id="password" placeholder="Enter Password">
+        <div class="input-container">
+            <input type="password" id="masterKey" placeholder="Enter Master Key">
+            <span class="toggle-password" onclick="toggleMasterKey()">👁️</span>
+        </div>
+
+        <div class="buttons">
+            <button class="encrypt" onclick="encrypt()">Encrypt</button>
+        </div>
+
+        <div id="output" class="output" style="display:none;">
+            <span id="result"></span>
+            <button class="copy-btn" onclick="copyText()">📋</button>
+        </div>
+
+        <div id="copiedMsg" class="copied" style="display:none;">Copied!</div>
+        <div id="errorPopup" class="error-popup"></div>
+        <div id="successPopup" class="success-popup"></div>
+
+        <footer>
+            Tool designed by <strong>D4rkScyth3</strong><br><br>
+            <a href="https://github.com/D4rkScyth3">GitHub</a> |
+            <a href="https://t.me/d4rkscyth3_hub">Telegram</a>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
