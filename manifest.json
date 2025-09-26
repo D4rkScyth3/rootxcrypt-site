@@ -1,0 +1,20 @@
+{
+  "name": "rootXcrypt",
+  "short_name": "rootXcrypt",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#00ffcc",
+  "icons": [
+    {
+      "src": "assets/rootxcrypt-logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/rootxcrypt-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
