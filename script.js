@@ -19,44 +19,63 @@ function bufToBase64(buf) {
   return btoa(String.fromCharCode(...new Uint8Array(buf)));
 }
 
-async function deriveKey(masterKey) {
-  const enc = new TextEncoder().encode(masterKey);
-  const keyMaterial = await crypto.subtle.importKey("raw", enc, { name: "PBKDF2" }, false, ["deriveKey"]);
-  return crypto.subtle.deriveKey(
+// Derive an HMAC key from the masterKey using PBKDF2 (deterministic)
+async function deriveHmacKey(masterKey) {
+  const mkBuf = strToBuf(masterKey);
+
+  const keyMaterial = await crypto.subtle.importKey(
+    "raw",
+    mkBuf,
+    { name: "PBKDF2" },
+    false,
+    ["deriveKey"]
+  );
+
+  // Use a fixed salt so derivation is deterministic for the same masterKey.
+  // (Changing the salt will change the derived key; keep it fixed if you want same outputs.)
+  const salt = strToBuf("rootxcrypt-deterministic-salt-v1");
+
+  const hmacKey = await crypto.subtle.deriveKey(
     {
       name: "PBKDF2",
-      salt: enc,
-      iterations: 1000,
+      salt: salt,
+      iterations: 100000, // higher iterations for stretching
       hash: "SHA-256"
     },
     keyMaterial,
-    { name: "AES-GCM", length: 256 },
+    { name: "HMAC", hash: "SHA-256", length: 256 },
     false,
-    ["encrypt"]
+    ["sign"]
   );
+
+  return hmacKey;
 }
 
+// Deterministic token generation using HMAC-SHA-256
+async function deterministicToken(password, masterKey, outLen = 16) {
+  const key = await deriveHmacKey(masterKey);
+  const data = strToBuf(password);
+
+  const signature = await crypto.subtle.sign("HMAC", key, data);
+  // base64 encode and keep only alnum and slice to desired length
+  const b64 = bufToBase64(signature).replace(/[^a-zA-Z0-9]/g, "");
+  return b64.slice(0, outLen);
+}
+
+// Replace encrypt() with deterministic version
 async function encrypt() {
   let pw = document.getElementById("password").value;
   let mk = document.getElementById("masterKey").value;
   if (!pw || !mk) return showError("⚠️ Enter both Master Key and Password");
 
   try {
-    const key = await deriveKey(mk);
-    const iv = crypto.getRandomValues(new Uint8Array(12));
-    const data = strToBuf(pw);
-
-    const encrypted = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, data);
-    let out = bufToBase64(encrypted);
-
-    // short deterministic output
-    let fixed = out.replace(/[^a-zA-Z0-9]/g, "").slice(0, 16);
-
+    // deterministic token for same inputs every time
+    let fixed = await deterministicToken(pw, mk, 16); // 16-char token
     showResult(fixed);
     showSuccess("✅ Token Generated!");
   } catch (err) {
     console.error(err);
-    showError("❌ Encryption Failed!");
+    showError("❌ Token generation failed!");
   }
 }
 
@@ -85,7 +104,7 @@ function showSuccess(msg) {
   setTimeout(() => popup.classList.remove("show"), 2000);
 }
 
-/* ✅ Markdown Popup */
+/* ✅ Markdown Popup (unchanged) */
 function openFilePopup() {
   fetch('docs/Readme.md')
     .then(response => response.text())
